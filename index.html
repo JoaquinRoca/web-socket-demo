@@ -1,9 +1,24 @@
-<textarea id="tf"></textarea>
+<body>
+  <textarea id="t-area" cols="50" rows="20"></textarea>
+</body>
+
 <script>
+  // Create a connection to your locally running webserver
+  // Make sure your server is running!
   const conn = new WebSocket('ws://localhost:8080')
-  const input = document.getElementById('tf')
+
+  // Grab the input field we created above
+  const input = document.getElementById('t-area')
+
+  // Keep the socket open and when you receive a message...
   conn.onmessage = function(e){
-    input.value = newText
+    // Update the input field value with the message text
+    input.value = e.data
   }
-  input.addEventListener('keyup', conn.send(e.target.value))
+
+  // Attach a listener to send data from the text field to the server
+  input.addEventListener('keyup', (e) => {
+    // Take the text and send it along!
+    conn.send(e.target.value)
+  })
 </script>
