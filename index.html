@@ -1,0 +1,9 @@
+<textarea id="tf"></textarea>
+<script>
+  const conn = new WebSocket('ws://localhost:8080')
+  const input = document.getElementById('tf')
+  conn.onmessage = function(e){
+    input.value = newText
+  }
+  input.addEventListener('keyup', conn.send(e.target.value))
+</script>
